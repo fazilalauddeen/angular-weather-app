@@ -1,0 +1,45 @@
+<main class="page">
+  <header class="header">
+    <h1>Weather dashboard</h1>
+    <button type="button" (click)="refreshAll()" [disabled]="citiesLoading()">
+      Refresh all
+      <span *ngIf="refreshAllLoading()" class="spinner"></span>
+    </button>
+  </header>
+
+  <p *ngIf="lastUpdatedAt() !== null" class="meta">
+    Last update: {{ lastUpdatedAt() | date: 'mediumTime' }}
+  </p>
+
+  <p *ngIf="citiesLoading()" class="notice">Loading cities...</p>
+
+  <p *ngIf="!citiesLoading() && citiesError()" class="notice error">
+    Failed to load cities: {{ citiesError() }}
+  </p>
+
+  <section *ngIf="!citiesLoading() && !citiesError()" class="grid" aria-label="City temperatures">
+    <article class="card" *ngFor="let card of cards(); trackBy: trackByCity">
+      <div class="row">
+        <h2>{{ card.city }}</h2>
+        <span *ngIf="card.loading" class="status">Loading</span>
+        <span *ngIf="!card.loading && card.errorMessage" class="status error">Error</span>
+        <span *ngIf="!card.loading && !card.errorMessage && card.temperature !== null" class="status ok">OK</span>
+      </div>
+
+      <p class="temp">{{ card.temperature === null ? '—' : (card.temperature + '°C') }}</p>
+
+      <p *ngIf="card.errorMessage" class="info error-text">
+        {{ card.errorMessage }}
+      </p>
+      <p *ngIf="!card.errorMessage && card.lastUpdatedAt !== null" class="info">
+        Updated {{ card.lastUpdatedAt | date: 'mediumTime' }}
+      </p>
+      
+
+      <button type="button" (click)="retryCity(card.city)" [disabled]="card.loading">
+        Retry
+      </button>
+    </article>
+  </section>
+</main>
+
