@@ -32,11 +32,6 @@ h1 {
   color: #ffffff;
 }
 
-.notice.error {
-  border-color: #fca5a5;
-  color: #b91c1c;
-}
-
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));

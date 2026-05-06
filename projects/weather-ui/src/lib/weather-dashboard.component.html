@@ -17,7 +17,7 @@
     Failed to load cities: {{ citiesError() }}
   </p>
 
-  <section *ngIf="!citiesLoading() && !citiesError()" class="grid" aria-label="City temperatures">
+  <section *ngIf="!citiesLoading() && !citiesError()" class="grid">
     <article class="card" *ngFor="let card of cards(); trackBy: trackByCity">
       <div class="row">
         <h2>{{ card.city }}</h2>

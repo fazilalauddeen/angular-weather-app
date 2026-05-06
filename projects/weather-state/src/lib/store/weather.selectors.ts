@@ -10,6 +10,7 @@ export const {
   selectRefreshAllInFlight,
 } = weatherFeature;
 
+
 export const selectCityCardsVm = createSelector(
   selectCities,
   selectCityWeatherByName,
